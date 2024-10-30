@@ -8,22 +8,49 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Lista de receitas</h1>
-        <ul id="list" class="list-group">
-
-        </ul>
+        <h1 class="text-center">Tabela de receitas</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>tipo</th>
+                    <th>ingredientes</th>
+                    <th>mais</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+            </tbody>
+        </table>
     </div>
     <script>
-        const list = document.getElementById('list')
+        const table = document.getElementById('tablebody')
         fetch("http://127.0.0.1:8050/receitas")
         .then(response => response.json())
         .then(data => {
-                data.forEach(element => {
-                    list.appendChild(`
-                        <li class="list-group-item">Item 5</li>
-                    `);
-                    console.log("asdasdad")
-                });
+            data.forEach(element => {
+                const newItem = document.createElement('tr');
+                const newTdName = document.createElement('td');
+                newTdName.textContent = `${element.nome}`;
+                const newTdTipo = document.createElement('td');
+                newTdTipo.textContent = `${element.tipo}`;
+                const newTdIngredientes = document.createElement('td');
+                newTdIngredientes.textContent = `${element.ingredientes}`;
+                const newTdMoreLink = document.createElement('td');
+                const link = document.createElement('a');
+                link.href = '/more/'+element.id+'/';
+                link.innerHTML += `
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                                    </svg>
+                                    `;
+                newTdMoreLink.appendChild(link);
+
+                newItem.appendChild(newTdName);
+                newItem.appendChild(newTdTipo);
+                newItem.appendChild(newTdIngredientes);
+                newItem.appendChild(newTdMoreLink);
+                table.appendChild(newItem);
+            });
         });
     </script>
 </body>
