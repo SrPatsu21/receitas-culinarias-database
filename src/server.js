@@ -7,15 +7,10 @@ app.use(express.json());
 
 // Lista inicial de receitas
 let receitas = [
-    { id: 1, nome: 'Bolo de Chocolate', ingredientes: ['chocolate', 'açúcar', 'farinha'], tipo: 'sobremesa', descricao:" farinha, ovo, chocolate."},
-    { id: 2, nome: 'Feijoada', ingredientes: ['feijão', 'carne', 'linguiça'], tipo: 'prato principal', descricao:" feijao, carne."},
+    { id: 1, nome: 'Bolo de Chocolate', ingredientes: ['chocolate', 'açúcar', 'farinha'], tipo: 'sobremesa', descricao:" farinha, ovo, chocolate. Junta tudo e frita"},
+    { id: 2, nome: 'Feijoada', ingredientes: ['feijão', 'carne', 'linguiça'], tipo: 'prato principal', descricao:" feijao, carne. junta e cozinha"},
     // Adicione mais receitas conforme necessário
 ];
-
-app.get('/', (req, res) =>
-{
-    res.sendFile(path.join(__dirname, './index.html'));
-});
 
 // Rota para listar todas as receitas
 app.get('/receitas', (req, res) => {
@@ -28,8 +23,8 @@ app.get('/receitas/:id', (req, res) => {
     if (!receita) return res.status(404).send('Receita não encontrada');
     res.json(receita);
 });
-
 // Rota para adicionar uma nova receita
+// curl -d '{"nome":"Feijoada", "ingredientes":["feijão", "carne", "linguiça"], "tipo":"prato principal", "descricao":"feijao, carne. junta e cozinha"}' -H "Content-Type: application/json" -X POST http:/localhost:8050/receitas
 app.post('/receitas', (req, res) => {
     const novaReceita = {
         id: receitas.length + 1,
@@ -43,6 +38,7 @@ app.post('/receitas', (req, res) => {
 });
 
 // Rota para atualizar uma receita
+// curl -d '{"nome":"Feijoada", "ingredientes":["feijão", "carne", "linguiça"], "tipo":"prato principal", "descricao":"feijao, carne. junta e cozinha"}' -H "Content-Type: application/json" -X PUT http:/localhost:8050/receitas/1
 app.put('/receitas/:id', (req, res) => {
     const receita = receitas.find(r => r.id === parseInt(req.params.id));
     if (!receita) return res.status(404).send('Receita não encontrada');
@@ -52,11 +48,11 @@ app.put('/receitas/:id', (req, res) => {
     receita.tipo = req.body.tipo || receita.tipo;
     receita.descricao = req.body.descricao || receita.descricao;
 
-    //* retorna receita
     res.json(receita);
 });
 
 // Rota para remover uma receita
+// curl -X DELETE http:/localhost:8050/receitas/1
 app.delete('/receitas/:id', (req, res) => {
     const receitaIndex = receitas.findIndex(r => r.id === parseInt(req.params.id));
     if (receitaIndex === -1) return res.status(404).send('Receita não encontrada');

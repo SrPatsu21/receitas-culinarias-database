@@ -1,0 +1,1 @@
+curl -d '{"nome":"Feijoada", "ingredientes":["feijão", "carne", "linguiça"], "tipo":"prato principal", "descricao":"feijao, carne. junta e cozinha"}' -H "Content-Type: application/json" -X POST http:/localhost:8050/receitas
