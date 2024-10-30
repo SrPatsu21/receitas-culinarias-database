@@ -1,0 +1,26 @@
+{
+  "name": "receitas-culinarias-database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrPatsu21/receitas-culinarias-database.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SrPatsu21/receitas-culinarias-database/issues"
+  },
+  "homepage": "https://github.com/SrPatsu21/receitas-culinarias-database#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
